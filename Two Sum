@@ -1,0 +1,24 @@
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
+
+
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+
+        """
+        We traverse the length of nums, and, starting from the integer at the 0th index,
+        we try adding and checking every other integer in the array to it, to see if we
+        find the target. We return the indices of the two integers once found. 
+        """
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                if nums[i] + nums[j] == target:
+                    return [i, j] 
