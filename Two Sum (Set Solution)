@@ -1,0 +1,20 @@
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+
+        """
+        We first create a set, then enumerate it. Then, we subtract each value in nums from
+        the target, and if we find it, we return it along with its index. Otherwise, change our 
+        current value in the set to the index.
+        """
+        values = {}
+        for index, value in enumerate(nums):
+            if (target - value) in values:
+                return values[target - value], index
+            else:
+                values[value] = index
+        return -1
