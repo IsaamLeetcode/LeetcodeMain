@@ -1,0 +1,16 @@
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+#We first create a string of all of the alphanumeric characters in the given string,
+        #seperated by a space
+        stringLetters = ''.join(ch for ch in s if ch.isalnum())
+        #Converting the string to lowercase
+        lowerCase = stringLetters.lower()
+        #Reversing the new string
+        reversedString = ''.join(reversed(lowerCase))
+        #Returning true if the string is equal to itself in reverse, meaning it is a palindrome
+        if (lowerCase == reversedString):
+            return True
+        else:
+            return False
