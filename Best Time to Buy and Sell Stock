@@ -1,0 +1,20 @@
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+#We assume that we buy at the first possible day.
+        buyingDay = prices[0]
+        profit = 0
+        #Iterate through each day in the array
+        for i in range(1, len(prices)):
+            #If the previously saved price is greater then the current, we let that be our new 
+            #current buying date
+            if (buyingDay > prices[i]):
+                buyingDay = prices[i]
+            #Else if the current price minus the previously saved one is greater then the profit,
+            #we set the profit equal to the difference of the current and the previous
+            elif(prices[i] - buyingDay > profit):
+                profit = prices[i] - buyingDay
+        return profit
