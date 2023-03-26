@@ -1,0 +1,12 @@
+Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+
+ class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        #Import itertools and use the module's built in tools to return a list of all of the
+        #permutations of the array of integers. 
+        import itertools
+        return list(itertools.permutations(nums))
