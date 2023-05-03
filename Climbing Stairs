@@ -1,0 +1,24 @@
+You are climbing a staircase. It takes n steps to reach the top.
+
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 1 or n == 2:
+            return n
+            #If there are only one or two steps, then are one or two possible ways to climb.
+        first = 1
+        previous = 2
+        current = 0
+        #Assuming that there are more then 2 steps, we assign first, previous and current 
+        #to our steps, we increase the number of current ways, by counting the different
+        #variations in the steps.
+        for step in range(3, n + 1):
+            current = first + previous
+            first = previous
+            previous = current
+        return current
