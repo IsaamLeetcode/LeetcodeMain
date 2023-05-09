@@ -1,0 +1,14 @@
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #Note that we first convert the given list to set, leaving only 1 instance of
+        #every element. We then sum this up and multiply it by two, then subtract the sum
+        #of the entire list. This gives us the element that only appears once. 
+        return 2 * sum(set(nums)) - sum(nums)
