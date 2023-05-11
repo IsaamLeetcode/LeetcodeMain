@@ -1,0 +1,27 @@
+Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.
+
+A leaf is a node with no children.
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def hasPathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: bool
+        """
+        #If the tree is empty, there no possible paths.
+        if root is None: 
+            return False
+        #If both current nodes are leafs, (have no left or right children), and the 
+        #the target is equal to the current value of the root, it is possible
+        if root.left is None and root.right is None and targetSum == root.val:
+            return True
+        #We recursively call the function on both the left and right children of the current
+        #node, and subtract the value of the current node from our target.
+        return self.hasPathSum(root.left, targetSum - root.val) or self.hasPathSum(root.right, targetSum - root.val)
