@@ -1,0 +1,18 @@
+Given a string s consisting of words and spaces, return the length of the last word in the string.
+
+A word is a maximal 
+substring
+ consisting of non-space characters only.
+ 
+ class Solution(object):
+    def lengthOfLastWord(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        #Split up the string into words
+        words = s.split()
+        #Get the last word of the string
+        lastWord = words[-1]
+        #Return its length
+        return len(lastWord)
