@@ -1,0 +1,12 @@
+Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+
+class Solution(object):
+    def countBits(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        #Create a binary array of length (n + 1), where each index has the number of "1s"
+        #in the binary representation of the number in the index. 
+        binaryArray = [bin(i).count('1') for i in range(n + 1)]
+        return binaryArray
