@@ -1,0 +1,19 @@
+Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return -1.
+
+class Solution(object):
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        charCount = {}
+        #Use enumerate to loop through both the indices and elements, count the
+        #number of occurences of each character un the string
+        for index, char in enumerate(s):
+            charCount[char] = charCount.get(char, 0) + 1
+        #If the number of occurrences equals 1, return its index. Otherwise, 
+        #no non-repeating characters exist, return -1. 
+        for index, char in enumerate(s):
+            if charCount[char] == 1:
+                return index
+        return -1
