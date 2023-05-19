@@ -1,0 +1,21 @@
+Given an integer num, repeatedly add all its digits until the result has only one digit, and return it.
+
+class Solution(object):
+    def addDigits(self, num):
+        """
+        :type num: int
+        :rtype: int
+        """
+        #The outside loop goes as long as the given number has two or more digits.
+        while num > 9:
+            #Initializing store of sum of digits.
+            digitSum = 0
+            #Inner loop to make sum up the digits, and update the given number.
+            while num > 0:
+                #We first add the last digit to our sum. 
+                digitSum += num % 10
+                #Update num using floor division.
+                num //= 10
+            num = digitSum
+        return num
+
