@@ -1,0 +1,20 @@
+Given a string s and a character c that occurs in s, return an array of integers answer where answer.length == s.length and answer[i] is the distance from index i to the closest occurrence of character c in s.
+
+The distance between two indices i and j is abs(i - j), where abs is the absolute value function.
+
+class Solution(object):
+    def shortestToChar(self, s, c):
+        """
+        :type s: str
+        :type c: str
+        :rtype: List[int]
+        """
+        #Creating a list of indices in the enumerated string.
+        indices = [i for i, char in enumerate(s) if char == c]
+        distances = []
+        #Loop through the length of the string.
+        for i in range(len(s):
+        #Append the smallest of the absolute values of the differences between the current index and the target's index.
+            distances.append(min(abs(i - idx) for idx in indices))
+        return distances
+
