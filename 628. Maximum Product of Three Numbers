@@ -1,0 +1,25 @@
+Given an integer array nums, find three numbers whose product is maximum and return the maximum product.
+
+class Solution(object):
+    def maximumProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #The first case handles if the list has length 3 or less, simply multiply every element
+        #and return
+        length = len(nums)
+        product = 1
+        if length <= 3:
+            for num in nums:
+                product *= num
+            return product
+        #If the length is greater then 3
+        elif length > 3:
+            nums.sort()  # Sort the list in ascending order
+            #This line deals with two possibilities, where it takes the maximum of two 
+            #different "sides". The first deals with the case where is are negative numbers
+            #, which would be at the 0th and 1st indices, and the second is where the list 
+            #has all positive elements at the start of it, as it is sorted. 
+            maxProduct = max(nums[0] * nums[1] * nums[length - 1], nums[length - 3] * nums[length - 2] * nums[length - 1])
+            return maxProduct
