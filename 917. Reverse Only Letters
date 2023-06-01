@@ -1,0 +1,31 @@
+Given a string s, reverse the string according to the following rules:
+
+All the characters that are not English letters remain in the same position.
+All the English letters (lowercase or uppercase) should be reversed.
+Return s after reversing it.
+
+ 
+ 
+ class Solution(object):
+    def reverseOnlyLetters(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        #Get all of the letters in the string
+        letters = [char for char in s if char.isalpha()]
+        #Reversing the letters
+        letters.reverse()
+        answer = []
+        i = 0
+        #Go through the whole string
+        for char in s:
+            #If the index contains a letter, replace it with the appropriate letter from the
+            #reversed letters, then go to next index
+            if char.isalpha():
+                answer.append(letters[i])
+                i += 1
+            else:
+                #If it isn't a letter, simply add back the character
+                answer.append(char)
+        return ''.join(answer)
