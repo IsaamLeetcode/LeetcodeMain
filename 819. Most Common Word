@@ -1,0 +1,24 @@
+Given a string paragraph and a string array of the banned words banned, return the most frequent word that is not banned. It is guaranteed there is at least one word that is not banned, and that the answer is unique.
+
+The words in paragraph are case-insensitive and the answer should be returned in lowercase.
+
+class Solution(object):
+    from collections import Counter
+    import string
+    def mostCommonWord(self, paragraph, banned):
+        """
+        """
+        # Create a set of banned words for efficient lookup
+        bannedSet = set(banned)
+        # Convert paragraph to lowercase and remove punctuation
+        paragraph = paragraph.lower()
+        paragraph = ''.join(char if char not in string.punctuation else ' ' for char in paragraph)
+        # Split paragraph into words
+        words = paragraph.split()
+        # Remove banned words
+        words = [word for word in words if word not in bannedSet]
+        # Count word occurrences
+        word_count = Counter(words)
+        # Get the most common word
+        most_common = word_count.most_common(1)
+        return most_common[0][0] if most_common else None
