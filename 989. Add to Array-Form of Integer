@@ -1,0 +1,22 @@
+The array-form of an integer num is an array representing its digits in left to right order.
+
+For example, for num = 1321, the array form is [1,3,2,1].
+Given num, the array-form of an integer, and an integer k, return the array-form of the integer num + k.
+
+ 
+ class Solution(object):
+    def addToArrayForm(self, num, k):
+        """
+        :type num: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        #Convert the array-form into a integer by mapping each number in nums into a string,
+        #joining them, then turning that string into an integer.
+        numInt = int(''.join(map(str, num)))
+        #Setting our answer equal to the sum of the array-form integer and k.
+        answerInt = numInt + k
+        #Turning our new sum back into a array and returning it.
+        answer = [int(digit) for digit in str(answerInt)]
+        return answer
+
