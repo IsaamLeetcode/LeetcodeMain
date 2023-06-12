@@ -1,0 +1,18 @@
+Given an array of integers arr, return true if the number of occurrences of each value in the array is unique or false otherwise.
+
+class Solution(object):
+    def uniqueOccurrences(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: bool
+        """
+        #We create a dictionary to store the occurrences
+        occurrences = {}
+        #For each number in the array, we set occurences at num to the current count. We 
+        #increment the count by 1 if it is already in the dictionary.
+        for num in arr:
+            occurrences[num] = occurrences.get(num, 0) + 1
+        #We create  set, to get rid of duplicates.
+        unique_counts = set(occurrences.values())
+        #Whether or not the lengths of the dictionary and the set are equal or not.
+        return len(occurrences) == len(unique_counts)
