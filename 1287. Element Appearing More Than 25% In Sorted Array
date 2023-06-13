@@ -1,0 +1,22 @@
+Given an integer array sorted in non-decreasing order, there is exactly one integer in the array that occurs more than 25% of the time, return that integer.
+
+class Solution(object):
+    def findSpecialInteger(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: int
+        """
+        #Turn our array into a set.
+        mySet = set(arr)
+        #Create a list of the number of occurrences of each integer in the set of the array.
+        noOfOccurrences = []
+        #Filling in the list.
+        for i in mySet:
+            count = arr.count(i)
+            noOfOccurrences.append(count)
+        maxO = max(noOfOccurrences)
+        #Check each integer in the array. If the number of occurrences is the greatest,
+        #it must be our integer, and so we return it. 
+        for i in arr:
+            if arr.count(i) == maxO:
+                return i
