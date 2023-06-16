@@ -1,0 +1,40 @@
+Given an array of integers arr, a lucky integer is an integer that has a frequency in the array equal to its value.
+
+Return the largest lucky integer in the array. If there is no lucky integer return -1.
+
+Example 1:
+Input: arr = [2,2,3,4]
+Output: 2
+Explanation: The only lucky number in the array is 2 because frequency[2] == 2.
+
+Example 2:
+Input: arr = [1,2,2,3,3,3]
+Output: 3
+Explanation: 1, 2 and 3 are all lucky numbers, return the largest of them.
+
+Example 3:
+Input: arr = [2,2,2,3,3]
+Output: -1
+Explanation: There are no lucky numbers in the array.
+
+class Solution(object):
+    def findLucky(self, arr):
+        luckyNumbers = []
+        frequency = {}
+        #We create a dictionary, and iterate over our array, and for each element, calculate
+        #and its frequency in arr to the dictionary.
+        for num in arr:
+            if num in frequency:
+                frequency[num] += 1
+            else:
+                frequency[num] = 1
+        #We then iterate over our dictionary, and if any number from the array is equal to its 
+        #frequency, it must be a lucky number. We then add it to the array of luckyNumbers.
+        for num, freq in frequency.items():
+            if num == freq:
+                luckyNumbers.append(num)
+        #We then return the largest lucky number, if one exists, otherwise we return -1.
+        if luckyNumbers:
+            return max(luckyNumbers)
+        else:
+            return -1
