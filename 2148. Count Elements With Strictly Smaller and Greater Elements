@@ -1,0 +1,42 @@
+Given an integer array nums, return the number of elements that have both a strictly smaller and a strictly greater element appear in nums.
+
+ 
+
+Example 1:
+Input: nums = [11,7,2,15]
+Output: 2
+Explanation: The element 7 has the element 2 strictly smaller than it and the element 11 strictly greater than it.
+Element 11 has element 7 strictly smaller than it and element 15 strictly greater than it.
+In total there are 2 elements having both a strictly smaller and a strictly greater element appear in nums.
+
+Example 2:
+Input: nums = [-3,3,3,90]
+Output: 2
+Explanation: The element 3 has the element -3 strictly smaller than it and the element 90 strictly greater than it.
+Since there are two elements with the value 3, in total there are 2 elements having both a strictly smaller and a strictly greater element appear in nums.
+
+class Solution(object):
+    def countElements(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #Make a variable to store the count.
+        count = 0
+        #Iterate through the length of the array.
+        for i in range(len(nums)):
+            hasSmaller = False
+            hasGreater = False
+            #Iterate through the array again.
+            for j in range(len(nums)):
+                #We check to see if we the current element has a greater and a smaller
+                #element.
+                if j != i and nums[j] < nums[i]:
+                    hasSmaller = True
+                elif j != i and nums[j] > nums[i]:
+                    hasGreater = True
+                #If it has both elements, we increment the count.
+                if hasSmaller and hasGreater:
+                    count += 1
+                    break
+        return count
