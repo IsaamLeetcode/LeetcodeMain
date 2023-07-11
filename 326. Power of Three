@@ -1,0 +1,39 @@
+Given an integer n, return true if it is a power of three. Otherwise, return false.
+
+An integer n is a power of three, if there exists an integer x such that n == 3x.
+
+ 
+
+Example 1:
+Input: n = 27
+Output: true
+Explanation: 27 = 33
+
+Example 2:
+Input: n = 0
+Output: false
+Explanation: There is no x where 3x = 0.
+
+Example 3:
+Input: n = -1
+Output: false
+Explanation: There is no x where 3x = (-1).
+
+class Solution(object):
+    import math
+    def isPowerOfThree(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        #The number has to be positive to be a power of three.
+        if n <= 0:
+            return False
+        #As long as number is divisible by three, we loop.
+        while n % 3 == 0:
+            #Do floor division and reassign n.
+            n //= 3
+        #Return whether or not n ended up at 1.
+        return n == 1
+        
+
