@@ -1,0 +1,57 @@
+You are given an array rectangles where rectangles[i] = [li, wi] represents the ith rectangle of length li and width wi.
+
+You can cut the ith rectangle to form a square with a side length of k if both k <= li and k <= wi. For example, if you have a rectangle [4,6], you can cut it to get a square with a side length of at most 4.
+
+Let maxLen be the side length of the largest square you can obtain from any of the given rectangles.
+
+Return the number of rectangles that can make a square with a side length of maxLen.
+
+ 
+
+Example 1:
+Input: rectangles = [[5,8],[3,9],[5,12],[16,5]]
+Output: 3
+Explanation: The largest squares you can get from each rectangle are of lengths [5,3,5,5].
+The largest possible square is of length 5, and you can get it out of 3 rectangles.
+
+Example 2:
+Input: rectangles = [[2,3],[3,7],[4,3],[3,7]]
+Output: 3
+
+class Solution(object):
+    def countGoodRectangles(self, rectangles):
+        """
+        :type rectangles: List[List[int]]
+        :rtype: int
+        """
+        #Initialize variables to hold the maximum side length and the number of rectangles.
+        maxLen = 0
+        count = 0
+        #We loop through the nested list.
+        for rectangle in rectangles:
+            #We first assign the side length to be the smallest value in the first rectangle,
+            #as that is currently the largest possible size of the square.
+            sideLen = min(rectangle)
+            #If the new side length at some point is greater then the max length, we ressign 
+            #the old max length, and reset the count.
+            if sideLen > maxLen:
+                maxLen = sideLen
+                count = 1
+            #If we find a side length equal to the current max length, we increment the count.
+            elif sideLen == maxLen:
+                count += 1
+        return count
+
+
+Additional Question:
+How would you get how many of each different size of square are there in each list?
+
+def countGoodRectangles(rectangles):
+    #Initialize a dictionary to store the frequencies.
+    squareFreq = {}
+    #Loop through the list, set the initial side length to be the minimum of the two lengths.
+    for rectangle in rectangles:
+        sideLen = min(rectangle)
+        #We add to the dictionary, and increment the count.
+        squareFreq[sideLen] = squareFreq.get(sideLen, 0) + 1  
+    return squareFreq
