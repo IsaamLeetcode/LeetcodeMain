@@ -1,0 +1,38 @@
+Given a non-negative integer num, return true if num can be expressed as the sum of any non-negative integer and its reverse, or false otherwise.
+
+Example 1:
+Input: num = 443
+Output: true
+Explanation: 172 + 271 = 443 so we return true.
+
+Example 2:
+Input: num = 63
+Output: false
+Explanation: 63 cannot be expressed as the sum of a non-negative integer and its reverse so we return false.
+
+Example 3:
+Input: num = 181
+Output: true
+Explanation: 140 + 041 = 181 so we return true. Note that when a number is reversed, there may be leading zeros.
+
+class Solution(object):
+    def sumOfNumberAndReverse(self, num):
+        """
+        :type num: int
+        :rtype: bool
+        """
+        #Make a helper function to reverse the integers.
+        def reverseInteger(n):
+            #Initialise a value for the reversed number.
+            reverseNum = 0
+            #Reversing the value:
+            while n > 0:
+                reverseNum = reverseNum * 10 + n % 10
+                n //= 10
+            return reverseNum
+        #For loop to check if the integer added to its reverse is equal to the 
+        #number.
+        for i in range(num + 1):
+            if i + reverseInteger(i) == num:
+                return True
+        return False
