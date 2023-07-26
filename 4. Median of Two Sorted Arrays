@@ -1,0 +1,36 @@
+Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+The overall run time complexity should be O(log (m+n)).
+
+Example 1:
+Input: nums1 = [1,3], nums2 = [2]
+Output: 2.00000
+Explanation: merged array = [1,2,3] and median is 2.
+
+Example 2:
+Input: nums1 = [1,2], nums2 = [3,4]
+Output: 2.50000
+Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+
+class Solution(object):
+    def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        #Create a merged array by adding the two given arrays, then sort it.
+        mergedArray = nums1 + nums2
+        mergedArray.sort()
+        #There are three cases we need to handle, if the array has one element, return that one.
+        if len(mergedArray) == 1:
+            return mergedArray[0]
+        #If the array has an odd number of elements, return the center element.
+        if len(mergedArray) % 2 == 1:
+            return mergedArray[(len(mergedArray) // 2)]
+        else:
+            #Otherwise, the array has an even number of elements, and we return the 
+            #average of the two center elements.
+            centerIndex1 = len(mergedArray) // 2 - 1
+            centerIndex2 = len(mergedArray) // 2
+            centerElements = mergedArray[centerIndex1: centerIndex2 + 1]
+            return (sum(centerElements) / 2.0)
