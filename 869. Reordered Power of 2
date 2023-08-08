@@ -1,0 +1,23 @@
+You are given an integer n. We reorder the digits in any order (including the original order) such that the leading digit is not zero.
+
+Return true if and only if we can do this so that the resulting number is a power of two.
+
+ 
+
+Example 1:
+Input: n = 1
+Output: true
+
+Example 2:
+Input: n = 10
+Output: false
+
+class Solution(object):
+    def reorderedPowerOf2(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        #We check the sorted string of n against its bit shift, and we check it in the range
+        #of 0 - 30, to address every case from 2^0 - 2^30.
+        return sorted(str(n)) in [sorted(str(1 << i)) for i in range(30)]
