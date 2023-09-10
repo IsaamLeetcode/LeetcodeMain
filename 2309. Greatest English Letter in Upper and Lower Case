@@ -1,0 +1,16 @@
+class Solution:
+    def greatestLetter(self, s: str) -> str:
+        commonLetter = ""
+
+        #Iterate through the string and check for both lowercase and uppercase versions of each letter
+        for char in s:
+            if char.isalpha():
+                lowercase = char.lower()
+                uppercase = char.upper()
+
+                #Check if both the lowercase and uppercase versions of the letter exist
+                if lowercase != uppercase and lowercase in s and uppercase in s:
+                    if common_letter == "" or uppercase > common_letter:
+                        common_letter = uppercase
+
+        return commonLetter
