@@ -1,0 +1,35 @@
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+ 
+
+Example 1:
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+Example 2:
+Input: strs = [""]
+Output: [[""]]
+
+Example 3:
+Input: strs = ["a"]
+Output: [["a"]]
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        #Initialize a dictionary.
+        res = {}
+        #Loop through the words.
+        for word in strs:
+            #We want to retain the original word to add to the dictionary, so we create a
+            #temporary variable to hold the word, and sort it..
+            temp = ''.join(sorted(word))
+            # If the sorted word exists in the dictionary, append it to the dictionary.
+            if temp in res:
+                res[temp].append(word)
+            #Else, add a new key-value pair to the dictionary
+            else:
+                res[temp] = [word]
+        #We only require the values list to be returned
+        return res.values()
