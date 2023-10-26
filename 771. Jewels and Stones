@@ -19,5 +19,5 @@ class Solution:
         #of jewels.
         for stone in list(stones):
             if stone in jewels:
-                result += 1
-        return result
+                answer += 1
+        return answer
