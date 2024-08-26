@@ -1,0 +1,45 @@
+Given a string s, remove duplicate letters so that every letter appears once and only once. You must make sure your result is 
+the smallest in lexicographical order
+ among all possible results.
+
+ 
+
+Example 1:
+
+Input: s = "bcabc"
+Output: "abc"
+Example 2:
+
+Input: s = "cbacdcbc"
+Output: "acdb"
+
+class Solution:
+    def removeDuplicateLetters(self, s: str) -> str:
+        #Use a dictionary to count the frequency of each character in the string.
+
+        frequency = {c: 0 for c in s}
+        for c in s:
+            frequency[c] += 1
+        
+        #Initialize a stack along with a set to keep track of characters in the set.
+        stack = []
+        inStack = set()
+
+        #Iterate through the string
+
+        for c in s:
+            
+            #Decrease the frequency of the current character
+            frequency[c] -= 1
+
+            #If the character is already in the stack, we skip it
+            if c in inStack:
+                continue
+            
+            while stack and stack[-1] > c and frequency[stack[-1]] > 0:
+                removed = stack.pop()
+                inStack.remove(removed)
+            
+            stack.append(c)
+            inStack.add(c)
+        return ''.join(stack)
