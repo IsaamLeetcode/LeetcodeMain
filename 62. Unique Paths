@@ -1,0 +1,36 @@
+There is a robot on an m x n grid. The robot is initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.
+
+Given the two integers m and n, return the number of possible unique paths that the robot can take to reach the bottom-right corner.
+
+The test cases are generated so that the answer will be less than or equal to 2 * 109.
+
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        #The function is much faster.
+        #return math.comb(m + n - 2, m - 1)
+
+        #Without Combinatorial function:
+
+        #These represent the numerator and denominator for the binomial coefficient, 
+        #(m + n - 2) and (n + 1) OR (m + 1) respectively.
+        #The formula for the binomial coefficient here (m + n - 2) / (n + 1) is derived 
+        #because supposing you start at (1,1), and want to move to a point (m, n) on the 
+        #bottom right of the grid, you need to make (m - 1) downwards movements, and (n - 1)
+        #rightwards movements. combining these gives you: (m - n - 1 - 1) = (m - n - 2).
+        #Now from this, you need to choose either (n - 1) or (m - 1) movements, which can be 
+        #expressed as a factorial. (m - n - 2)!/(n - 1)!(m - 1)! 
+        numerator = 1
+        denominator = 1
+
+        for i in range(1, m):
+
+            #This multiplication effectively calculates the factorial (m - 2 - n).
+            #Each iteration of the loop, the value of n stays fixed, while m moves 
+            #with the loop.
+            numerator *= (n + i - 1)
+
+            #This calculates (m - 1)!
+            denominator *= i
+
+        #Return the division as needed by the formula.
+        return numerator // denominator
