@@ -1,0 +1,69 @@
+Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
+
+ 
+
+Example 1:
+
+
+Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+Output: [3,9,20,null,null,15,7]
+Example 2:
+
+Input: preorder = [-1], inorder = [-1]
+Output: [-1]
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+
+        #Preorder vs. Inorder:
+        #In preorder traversal, you start traversing from the root, then move the left subtree, then finally
+        #to the right. When you switch to either the left or right trees, you complete traversing the entire
+        #tree before moving on. Ex: In the the given (Example 1), you start from the root:
+        #3 -> 9 -> 20 -> 15 -> 7. 
+        #In inorder traversal, you move from the left to the root to the right. Again, all subtrees under the
+        #initial left/right subtrees must be traversed completely before moving on. Ex: In (Example 1) you
+        #start from the leftmost subtree: 9 -> 3 (Back to root) -> 15 (Right most subtree of initial
+        #right subtree) -> 20 (Back to root of right subtree) -> 7
+        #Preorder is commonly used when copying BST's, constructing a tree, or for Depth First Searches.
+        #Inorder is used to sort the nodes in a BST, and to find the kth smallest element. 
+        #Preorder allows you to process the roots before the children, and inorder allows you to
+        #process nodes in sorted order.
+
+
+        #Base case, there are no elements to construct the tree:
+        if not preorder or not inorder:
+            return None
+
+        #The first element in the preorder must be the root. We save it:
+        rootValue = preorder[0]
+
+        #Initialize a new node with the value of the given root saved above:
+        root = TreeNode(rootValue)
+
+        #Find the index of the root in inorder This is done to help split the inorder array into two parts.
+        #Everything to the left of the root index must be in the left subtree, and everything to its right
+        #must be in the right subtree:
+        rootIndex = inorder.index(rootValue)
+
+        #Here, we recursively build out both the left and right subtrees using slicing, and the fact 
+        #that we previously saved the index of the root.
+
+        #preorder[1:1+root_index] selects the first root_index elements after the root for the left subtree.
+        #This slice takes all the elements before root_index in the inorder array.
+        #These elements correspond to the left subtree of the current root.
+        root.left = self.buildTree(preorder[1: 1 + rootIndex], inorder[:rootIndex])
+
+        #Similarly: The elements in the preorder array for the right subtree start after the left subtree,
+        #Which is why [1 + rootIndex:] will give every element for the right subtree found in preorder.
+        #inorder[root_index+1:] selects all elements after the current root in the inorder array, which
+        #correspond to the right subtree.
+        root.right = self.buildTree(preorder[1 + rootIndex:], inorder[rootIndex + 1:])
+
+        return root
