@@ -1,0 +1,76 @@
+Given the head of a linked list, rotate the list to the right by k places.
+
+
+Example 1:
+
+
+Input: head = [1,2,3,4,5], k = 2
+Output: [4,5,1,2,3]
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+
+        #Base Case, our head is empty or k is 0, meaning we do not need to rotate. Similarly head.next
+        #gives us the 2nd element in the head, if it also does not exist, then any rotations will have no
+        #impact on the list:
+        if not head or not head.next or k == 0:
+            return head
+
+        #Find the length of the list:
+        #Initialise a variable for the length:
+        length = 1
+        
+        #Initialize a pointer for the current node at the current head:
+        current = head
+
+        #Loop while there is still a node after a current one:
+        while current.next:
+
+            #Move the pointer for the current forwards:
+            current = current.next
+
+            #Increment the length:
+            length += 1
+        
+        #We next compute the effective rotation. Note that if the length of the list is evenly divisible
+        #by the number of rotations, performing the rotations is identical to not rotating the list.
+        #Check to see if the number of rotations is evenly divisible by the length of the list:
+        k = k % length
+
+        if k == 0:
+
+            #If evenly divisible, no changes need to be made, and you return the list as is.
+            return head
+
+        #Next we make the list circular by connecting the tail of the list to the head. Note that the
+        # "current" pointer is already pointing to to the end of list, because it was moved during
+        #the while loop when finding the length of the list. 
+        #The reason we make it circular is because it is easier to rotate nodes by "cycling" them around
+        #list.
+        current.next = head
+
+        #When rotating a list to the right by k places, the last k elements of the list should be moved
+        #to the front. (The new tail of the list of the list just before these k elements.)
+        #When rotating to the right by k places, the new head will be the kth node from the end of the list. 
+        #This is equivalent to the length - kth node from the beginning of the list.
+        newTailPosition = length - k
+
+        #Next, reassign the new tail to be the head. This will initially start at the original head:
+        newTail = head
+
+        for _ in range(newTailPosition - 1):
+            newTail = newTail.next
+        
+        #Now we break the loop and set the new head of the list:
+        newHead = newTail.next
+
+        #Break the circular connection:
+        newTail.next = None
+
+        #Return the new list:
+        return newHead
