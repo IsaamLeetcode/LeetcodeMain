@@ -1,0 +1,67 @@
+Given a string s, partition s such that every 
+substring
+ of the partition is a 
+palindrome
+. Return all possible palindrome partitioning of s.
+
+ 
+
+Example 1:
+
+Input: s = "aab"
+Output: [["a","a","b"],["aa","b"]]
+Example 2:
+
+Input: s = "a"
+Output: [["a"]]
+
+class Solution:
+
+    def backtracking(self, start, path, s, answer):
+
+        #If we have reached the end of the string, we have found all of the substrings, and can add their
+        #paths to the answer and return,
+        if start == len(s):
+            answer.append(path.copy())
+            return
+
+        #Loop from we previously left off to the end of the string:
+        for end in range(start + 1, len(s) + 1):
+
+            #Get the current substring by slicing over our current length of iteration:
+            substring = s[start:end]
+
+            #Call the helper function to see if it is a palindrome:
+            if self.isPalindrome(substring):
+
+                #Add the palindromic substring to the path:
+                path.append(substring)
+
+                #Recursion for the next index:
+                self.backtracking(end, path, s, answer)  
+
+                #Backtrack by removing the last added substring. This removes the previously added element 
+                #from the substring, and allows us to create more substrings.
+                path.pop()
+
+
+
+    def partition(self, s: str) -> List[List[str]]:
+
+        #We will use two helper functions, one to check if any given substring is a palindrome, and one
+        #to recursively create and check all of the substrings.
+
+        #Begin the backtracking here:
+        answer = []
+
+        #Call the backtracking function:
+        self.backtracking(0, [], s, answer)
+
+        return answer
+
+     
+
+    def isPalindrome(self, s):
+
+        #Return whether or not the current string is a palindrome:
+        return s == s[::-1]
