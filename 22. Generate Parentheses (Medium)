@@ -1,0 +1,51 @@
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+ 
+
+Example 1:
+
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+Example 2:
+
+Input: n = 1
+Output: ["()"]
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+
+        #Helper function to perform backtracking, it takes in the string that we are currently building, 
+        #along with the number of "(" and ")" in the current string.
+        def backTrack(currentString, openCount, closeCount):
+
+            #This is our base case. If the string we are currently building has twice the number 
+            #of pairs of parentheses in the original string (2 * n), we have completed all valid 
+            #pairs, and so can add our result to the answer and return it.
+            if len(currentString) == 2 * n:
+                answer.append(currentString)
+                return
+            
+            #Here, we check if the number of opening parenthese we have added to our current string
+            #is less then n, (the total number of valid pairs). If it is, it may be possible to create
+            #another valid pair, so we recursively call this function to try and add the opening parenthesis:
+            if openCount < n:
+
+                #Call the function again, updating the current string with an additonal opening parenthesis
+                #and incrementing the number of opening parenthesis by one. The number of closing parenthesis
+                #remains the same.
+                backTrack(currentString + '(', openCount + 1, closeCount)
+
+            #Here, we check to see if we do not have enough closing parenthesis to match each of our
+            #opening parenthesis:
+            if closeCount < openCount:
+
+                #Call the function again, this time adding a closing parenthesis, and incrementing
+                #the count of closed parenthesis:
+                backTrack(currentString + ')', openCount, closeCount + 1)
+        
+        #In the main function, initialise a list to store the answer, make a call to the backtrack function,
+        #and return the answer:
+        answer = []
+        backTrack("", 0, 0)
+        return answer
+        
