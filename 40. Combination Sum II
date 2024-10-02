@@ -1,0 +1,68 @@
+Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.
+
+Each number in candidates may only be used once in the combination.
+
+Note: The solution set must not contain duplicate combinations.
+
+ 
+
+Example 1:
+
+Input: candidates = [10,1,2,7,6,1,5], target = 8
+Output: 
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+]
+Example 2:
+
+Input: candidates = [2,5,2,1,2], target = 5
+Output: 
+[
+[1,2,2],
+[5]
+]
+
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+
+        #Make a helper function to backtrack. Pass in the start, from which we continue checking for new
+        #combinations, the current combination that we have built, and its sum.
+        def backtrack(start, currentCombination, currentSum):
+
+            #Base Case: Our current sum is equal to the target, add it to the answer and return.
+            if currentSum == target:
+                answer.append(list(currentCombination))
+                return
+            
+            #If the target has been exceeded by the current sum, we backtrack:
+            if currentSum > target:
+                return
+
+            #Loop from the given start to the end of the list of candidates:
+            for i in range(start, len(candidates)):
+
+                #Here, we make sure we skip duplicates, as each number in candidates can only be used once in
+                #each combination:
+                if i > start and candidates[i] == candidates[i - 1]:
+                    continue
+
+                #Add the current element to the current combination:
+                currentCombination.append(candidates[i])
+
+                #Recursive call to move on to the next element:
+                backtrack(i + 1, currentCombination, currentSum + candidates[i])
+
+                #Backtrack by removing the current element in the current combination:
+                currentCombination.pop()
+
+        #Sort the input list to allow for easier iteration:
+        candidates.sort()
+
+        #Initialise the answer array, call the backtracking function, return the answer:
+        answer = []
+        backtrack(0, [], 0)
+        return answer
+        
